@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".profileActivity">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#2255AA"/>
 
     <ImageButton
         android:id="@+id/scheduleBtn"
@@ -83,16 +91,42 @@
         app:layout_constraintVertical_bias="0.799" />
 
 
+
+    <View
+        android:id="@+id/TopBarP"
+        android:background="#2255AA"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/bottom_bar" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:text="Patient"
-        android:textSize="25dp"
+        android:textSize="35sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/TopBarP"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Will Disapear once/if a patient profile is loaded-->
+    <TextView
+        android:id="@+id/ExplainerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="50sp"
+        android:text="If you are using this app to monitor another person, Please setup both yours and the others Account in Settings."
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/addBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TopBarP" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
