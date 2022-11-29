@@ -2,4 +2,17 @@
     <string name="app_name">Cosc341Group14</string>
     <string name="aleveButton"><font size="20">8:00 am - Aleve</font>\n\<font size="10">1 Dose - Daily</font></string>
     <string name="advilButton"><font size="20">8:00 am/pm - Advil</font>\n\<font size="10">2 Doses - Every 12 Hours</font></string>
+    <string-array name="repeat_array">
+        <item>"Daily"</item>
+        <item>"Every Second Day"</item>
+        <item>"Weekly"</item>
+        <item>"Monthly"</item>
+    </string-array>
+
+    <string-array name="dose_array">
+        <item>"1 dose"</item>
+        <item>"2 doses"</item>
+        <item>"3 doses"</item>
+        <item>"4 doses"</item>
+    </string-array>
 </resources>
