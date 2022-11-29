@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, settingsActivity.class);
         startActivity(intent);
         finish();
-
     }
 
 
@@ -87,15 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, addMedActivity.class);
         startActivity(intent);
-        finish();
 
     }
 
     public void editActivity(View view){
 
-        Intent intent = new Intent(this, editMedActivity.class);
+        Intent intent = new Intent(this, medicationsActivity.class);
         startActivity(intent);
-        finish();
 
     }
 
