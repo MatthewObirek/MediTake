@@ -10,6 +10,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class MainActivity extends AppCompatActivity {
         @Override
@@ -18,6 +26,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("Calendar");
+
+        //create settings file if it does not exist
+        File file = new File(getApplicationContext().getFilesDir(),"settings.txt");
+        if(!file.exists()){
+            String settings = "false,false,false,0,false,false,false,false";
+            String filename = "settings.txt";
+            FileOutputStream outputStream;
+            try {
+                outputStream = openFileOutput(filename, MODE_PRIVATE);
+                outputStream.write(settings.getBytes());
+                outputStream.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
         Intent intent = getIntent();
