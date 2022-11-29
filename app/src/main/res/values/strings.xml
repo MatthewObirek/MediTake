@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Cosc341Group14</string>
+
+    <string-array name="repeat_array">
+        <item>"Daily"</item>
+        <item>"Every Second Day"</item>
+        <item>"Weekly"</item>
+        <item>"Monthly"</item>
+    </string-array>
+
+    <string-array name="dose_array">
+        <item>"1 dose"</item>
+        <item>"2 doses"</item>
+        <item>"3 doses"</item>
+        <item>"4 doses"</item>
+    </string-array>
+
+
+
+
 </resources>
