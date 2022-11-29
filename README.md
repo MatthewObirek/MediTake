@@ -9,6 +9,7 @@ The Connection section mainly centers around the ProfileActivity.
 [X] - Edit and delete functions for the layout and cards.
 [X] - Add and Delete buttons and Dialogs
 [X] - Profile Abstracted into class
+[X] - Implemented Edit Button
 [ ] - Read/write From/To Connection.txt file
 [ ] - Create dedicated Medication files for each Patient `id.txt`
 [ ] - Implement proper bundling and activity switching/starting.
