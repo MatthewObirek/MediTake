@@ -44,12 +44,14 @@ public class addMedActivity extends AppCompatActivity {
 
     }
 
+    // close activity
     public void cancel(View view){
 
         finish();
 
     }
 
+    // submit form and write to file
     public void submit(View view){
 
         String medName = ((EditText)findViewById(R.id.etMedName)).getText().toString();
@@ -82,6 +84,7 @@ public class addMedActivity extends AppCompatActivity {
             outputStream = openFileOutput(filename, Context.MODE_APPEND);
             outputStream.write(fileContents.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
             outputStream.close();
+            Toast.makeText(getApplicationContext(), medName + " successfully added!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }

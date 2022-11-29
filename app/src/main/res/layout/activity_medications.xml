@@ -33,16 +33,7 @@
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375">
-
-        <Button
-            android:id="@+id/aleveButton"
-            android:layout_width="380dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#C0C0C0"
-            android:text="test"
-            android:textColor="#000000" />
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.375"/>
 
     <Button
         android:id="@+id/edit_Btn"
