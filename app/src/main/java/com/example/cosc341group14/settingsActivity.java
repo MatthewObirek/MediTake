@@ -122,6 +122,7 @@ public class settingsActivity extends AppCompatActivity {
             enableMonitorEditLayout.setVisibility(View.GONE);
             enableNotificationsLayout.setVisibility(View.GONE);
         }
+        saveSettings();
     }
 
     public void advancedOptionsChanged(View view) {
