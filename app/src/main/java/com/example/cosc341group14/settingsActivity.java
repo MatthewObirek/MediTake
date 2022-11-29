@@ -39,6 +39,8 @@ public class settingsActivity extends AppCompatActivity {
     Switch disableAlarmBundling;
     Spinner homeScreen;
     Switch enableMonitoring;
+    Switch enableMonitorEdit;
+    Switch enableNotifications;
     Switch lockPatientOptions;
 
     View disableSnoozeLayout;
@@ -68,6 +70,8 @@ public class settingsActivity extends AppCompatActivity {
         disableAlarmBundling = (Switch) findViewById(R.id.disableAlarmBundlingSwitch);
         homeScreen = (Spinner) findViewById(R.id.homeScreenSpinner);
         enableMonitoring = (Switch) findViewById(R.id.enableMonitoringSwitch);
+        enableMonitorEdit = (Switch) findViewById(R.id.enableMonitorEditSwitch);
+        enableNotifications = (Switch) findViewById(R.id.enableNotificationsSwitch);
         lockPatientOptions = (Switch) findViewById(R.id.lockPatientOptionsSwitch);
 
         homeScreen.setOnItemSelectedListener(
@@ -99,10 +103,10 @@ public class settingsActivity extends AppCompatActivity {
         disableSnooze.setChecked(Boolean.parseBoolean(settingsList.get(1)));
         disableAlarmBundling.setChecked(Boolean.parseBoolean(settingsList.get(2)));
         homeScreen.setSelection(Integer.parseInt(settingsList.get(3)));
-        disableAlarmBundling.setChecked(Boolean.parseBoolean(settingsList.get(4)));
-        disableAlarmBundling.setChecked(Boolean.parseBoolean(settingsList.get(5)));
-        disableAlarmBundling.setChecked(Boolean.parseBoolean(settingsList.get(6)));
-        disableAlarmBundling.setChecked(Boolean.parseBoolean(settingsList.get(7)));
+        enableMonitoring.setChecked(Boolean.parseBoolean(settingsList.get(4)));
+        enableMonitorEdit.setChecked(Boolean.parseBoolean(settingsList.get(5)));
+        enableNotifications.setChecked(Boolean.parseBoolean(settingsList.get(6)));
+        lockPatientOptions.setChecked(Boolean.parseBoolean(settingsList.get(7)));
 
 
         if(Boolean.parseBoolean(settingsList.get(0))) {
