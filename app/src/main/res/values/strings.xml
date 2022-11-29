@@ -15,4 +15,9 @@
         <item>"3 doses"</item>
         <item>"4 doses"</item>
     </string-array>
+
+    <string-array name="home_screen_array">
+        <item>Medication</item>
+        <item>Monitor</item>
+    </string-array>
 </resources>
