@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,8 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".profileActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <View
-        android:id="@+id/view"
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +76,21 @@
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/icons8_automatic_80" />
 
+    <!--Will Disapear once/if a patient profile is loaded-->
+    <TextView
+        android:id="@+id/ExplainerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="50sp"
+        android:text="If you are using this app to monitor another person, Please setup both yours and the others Account in Settings."
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/add_Btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
     <Button
         android:id="@+id/edit_Btn"
         android:layout_width="121dp"
@@ -73,7 +110,7 @@
         app:layout_constraintVertical_bias="0.799" />
 
     <Button
-        android:id="@+id/addBtn"
+        android:id="@+id/add_Btn"
         android:layout_width="121dp"
         android:layout_height="82dp"
         android:backgroundTint="#1C9DE2"
@@ -89,44 +126,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.799" />
-
-
-
-    <View
-        android:id="@+id/TopBarP"
-        android:background="#2255AA"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/bottom_bar" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Patient"
-        android:textSize="35sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/TopBarP"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--Will Disapear once/if a patient profile is loaded-->
-    <TextView
-        android:id="@+id/ExplainerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="50sp"
-        android:text="If you are using this app to monitor another person, Please setup both yours and the others Account in Settings."
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/addBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TopBarP" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
