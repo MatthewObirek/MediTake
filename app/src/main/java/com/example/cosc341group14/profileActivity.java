@@ -164,28 +164,6 @@ public class profileActivity extends AppCompatActivity {
 
         addDialog = builder.create();
     }
-/*
-    private void buildDeleteDialog(View patientView){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //View view = getLayoutInflater().inflate(R.layout.dialog_profile, null);
-
-        //builder.setView(view);
-        builder.setTitle("Delete Patient " + ((TextView)patientView.findViewById(R.id.detailsPatient)).getText().toString() + "?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        linearLayout.removeView(patientView);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-        deleteDialog.add(builder.create());
-    }
-*/
 
     private void addCard(Profile patient) {
 
@@ -228,9 +206,10 @@ public class profileActivity extends AppCompatActivity {
                 // I will be using some txt files instead of a database for this section of the prototype.
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putBoolean("altUser", true);
                 bundle.putString("patientName", patient.name);
                 bundle.putString("FileName", patient.filename);
-
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(getApplicationContext().getFilesDir(),"settings.txt");
         if(!file.exists()){
             String settings = "false,false,false,0,false,false,false,false";
-            String filename = "settings.txt";
+            String filenameSettings = "settings.txt";
             FileOutputStream outputStream;
             try {
-                outputStream = openFileOutput(filename, MODE_PRIVATE);
+                outputStream = openFileOutput(filenameSettings, MODE_PRIVATE);
                 outputStream.write(settings.getBytes());
                 outputStream.close();
             }
@@ -48,10 +48,15 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         LinearLayout altUser = (LinearLayout) findViewById(R.id.headerList);
         if (intent.hasExtra("altUser")) {
+            altUser.setVisibility(View.VISIBLE);
             if (bundle.getBoolean("altUser") == true) {
+                TextView altUserName = altUser.findViewById(R.id.currentUserTextView);
+                altUserName.setText(bundle.getString("patientName"));
+
                 altUser.setVisibility(View.VISIBLE);
             } else {
                 altUser.setVisibility(View.GONE);
+
             }
         } else {
             altUser.setVisibility(View.GONE);

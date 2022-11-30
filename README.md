@@ -12,6 +12,6 @@ The Connection section mainly centers around the ProfileActivity.
 - [X] - Implemented Edit Button
 - [X] - Read/write From/To `Connection.txt` file
 - [X] - Create dedicated Medication files for each Patient `id.txt`
-- [ ] - Implement proper bundling and activity switching/starting.
+- [X] - Implement proper bundling and activity switching/starting.
 To implement the Final Check, I need to merge my branch
 
