@@ -2,7 +2,10 @@ package com.example.cosc341group14;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -12,6 +15,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
+import java.util.Date;
 
 public class addMedActivity extends AppCompatActivity {
 
@@ -85,6 +89,29 @@ public class addMedActivity extends AppCompatActivity {
             outputStream.write(fileContents.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
             outputStream.close();
             Toast.makeText(getApplicationContext(), medName + " successfully added!", Toast.LENGTH_SHORT).show();
+
+            //Set reminder
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("medication", medName);
+            bundle.putString("doses", dose);
+            bundle.putInt("hour", Integer.parseInt(hour));
+            bundle.putInt("minute", Integer.parseInt(minute));
+            int notificationId = (medName+dose+hour+minute).hashCode();
+            bundle.putInt("id", notificationId);
+            bundle.putString("extras", "");
+            intent.putExtras(bundle);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationId, intent, PendingIntent.FLAG_MUTABLE);
+
+            Date date = new Date();
+            date.setHours(Integer.parseInt(hour));
+            date.setMinutes(Integer.parseInt(minute));
+            date.setSeconds(0);
+
+            long time = date.getTime();
+
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         } catch (Exception e) {
             e.printStackTrace();
         }
