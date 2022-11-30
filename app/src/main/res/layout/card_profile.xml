@@ -61,6 +61,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:layout_column="1"
                         android:layout_weight="2"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Details"
                         android:visibility="visible" />
                     <Button
@@ -70,6 +71,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         android:layout_column="2"
                         android:layout_weight="2"
                         android:layout_marginTop="30dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Delete"
                         android:visibility="visible"
                         />

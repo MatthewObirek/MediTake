@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,15 +22,20 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class profileActivity extends AppCompatActivity {
 
-    boolean editMode = false;
+    String WriteData;
+    String file;
 
+    boolean editMode = false;
     LinearLayout linearLayout;
+    TextView EText;
     AlertDialog addDialog;
     ArrayList<Profile> patientList;
     Button addButton;
@@ -41,6 +47,7 @@ public class profileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setTitle("Patients");
         linearLayout = findViewById(R.id.linearLayout);
+        EText = findViewById(R.id.ExplainerText);
         patientList = new ArrayList<Profile>();
 
         addButton = findViewById(R.id.add_Btn);
@@ -48,7 +55,7 @@ public class profileActivity extends AppCompatActivity {
 
         //Read patients from file
 
-        String file = "connection.txt";
+        file = "connection.txt";
         //File read operation
         try {
             FileInputStream fis = openFileInput(file);  //A FileInputStream obtains input bytes from a file in a file system
@@ -66,14 +73,20 @@ public class profileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        if(patientList.size() == 0)
+            EText.setVisibility(View.VISIBLE);
+        else
+            EText.setVisibility(View.GONE);
+
+
         for(Profile patient: patientList) {
             addCard(patient);
         }
 
-
-        buildAddDialog();
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                buildAddDialog();
                 addDialog.show();
             }
         });
@@ -83,15 +96,28 @@ public class profileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int count = linearLayout.getChildCount();
                 if(editMode==false) {
-                    editButton.setText("Done");
-                    for (int i = 0; i < count; i++) {
+                    editButton.setText("Save");
+                    for (int i = 1; i < count; i++) {
                         linearLayout.getChildAt(i).findViewById(R.id.editButtonsLayout).setVisibility(View.VISIBLE);
                         linearLayout.getChildAt(i).setClickable(false);
                     }
                     editMode = true;
                 } else {
+                    FileOutputStream outputStream;  //Allow a file to be opened for writing
+                    try {
+                        outputStream = openFileOutput(file, Context.MODE_PRIVATE);
+                        for(Profile patient : patientList){
+                            WriteData += patient.toString();
+                        }
+
+                        outputStream.write(WriteData.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     editButton.setText("Edit");
-                    for (int i = 0; i < count; i++) {
+                    for (int i = 1; i < count; i++) {
                         linearLayout.getChildAt(i).findViewById(R.id.editButtonsLayout).setVisibility(View.GONE);
                         linearLayout.getChildAt(i).setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                         linearLayout.getChildAt(i).setClickable(true);
@@ -116,8 +142,17 @@ public class profileActivity extends AppCompatActivity {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        EText.setVisibility(view.GONE);
                         patientList.add(new Profile(name.getText().toString(), id.getText().toString(), "Up to date"));
                         addCard(patientList.get(patientList.size()-1));
+                        FileOutputStream outputStream;  //Allow a file to be opened for writing
+                        try {
+                            outputStream = openFileOutput(file, Context.MODE_APPEND);
+                            outputStream.write(patientList.get(patientList.size()-1).toString().getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
+                            outputStream.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -153,6 +188,8 @@ public class profileActivity extends AppCompatActivity {
 */
 
     private void addCard(Profile patient) {
+
+
         final View view = getLayoutInflater().inflate(R.layout.card_profile, null);
 
         View profileButton = view.findViewById(R.id.profileCard);
@@ -169,12 +206,7 @@ public class profileActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int before = linearLayout.getChildCount();
                 patient.deleteDialog.show();
-                int after = linearLayout.getChildCount();
-                //linearLayout.removeView(view);
-                //if(before != after)
-                    //deleteDialog.remove(linearLayout.indexOfChild(view));
             }
         });
 
@@ -196,8 +228,8 @@ public class profileActivity extends AppCompatActivity {
                 // I will be using some txt files instead of a database for this section of the prototype.
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("patientName", nameView.getText().toString());
-                //bundle.putString("FileName", fileList.get());
+                bundle.putString("patientName", patient.name);
+                bundle.putString("FileName", patient.filename);
 
                 startActivity(intent);
             }
@@ -234,7 +266,7 @@ public class profileActivity extends AppCompatActivity {
     // Abstracting Patient Data to clean up code and make it more usable
     public class Profile{
         public String name;
-        public String id;
+        public String id; // the id would Ideally be used to link Patients to "Nurses"
         public String details;
         public String filename;
         public AlertDialog deleteDialog;
@@ -245,13 +277,15 @@ public class profileActivity extends AppCompatActivity {
             this.id = id;
             this.details = details;
             this.filename = id+".txt";
-
-
         }
 
         Profile(String[] InfoArray)
         {
             this(InfoArray[0], InfoArray[1], InfoArray[2]);
+        }
+
+        public String toString(){
+            return this.name + "," + this.id + "," + this.details +"\n";
         }
 
         //Initialize Delete Dialog.
@@ -265,6 +299,10 @@ public class profileActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             linearLayout.removeView(patientView);
+                            patientList.remove(Profile.this);
+                            if(patientList.size() == 0){
+                                EText.setVisibility(View.VISIBLE);
+                            }
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -24,6 +24,19 @@
             android:layout_margin="20dp">
 
 
+            <!--Will Disapear once/if a patient profile is loaded-->
+            <TextView
+                android:id="@+id/ExplainerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="50sp"
+                android:text="If you are using this app to monitor another person, Please setup both yours and the others Account in Settings."
+                android:textAlignment="center"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/add_Btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </LinearLayout>
 
     </ScrollView>
@@ -76,18 +89,6 @@
         app:layout_constraintVertical_bias="0.975"
         app:srcCompat="@drawable/icons8_automatic_80" />
 
-    <!--Will Disapear once/if a patient profile is loaded-->
-    <TextView
-        android:id="@+id/ExplainerText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="50sp"
-        android:text="If you are using this app to monitor another person, Please setup both yours and the others Account in Settings."
-        android:textAlignment="center"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/add_Btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 
