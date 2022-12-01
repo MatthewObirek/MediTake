@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout reminderOptions = (LinearLayout) view.findViewById(R.id.editButtonsLayout);
         LinearLayout due = (LinearLayout) findViewById(R.id.dueList);
         LinearLayout taken = (LinearLayout) findViewById(R.id.takenList);
+        LinearLayout later = (LinearLayout) findViewById(R.id.laterTodayList);
         View medButton = view.findViewById(R.id.medCard);
         TextView nameView = view.findViewById(R.id.nameMed);
 
@@ -132,7 +134,13 @@ public class MainActivity extends AppCompatActivity {
         Button skip = view.findViewById(R.id.btnSkip);
 
         String[] array = med.split("[,]",0);
-        nameView.setText(array[2] + ":" + array[3] + array[0]+" - " + array[2] +", " + array[4]);
+        String meridiem = "am";
+        int time;
+        if ((time = (Integer.parseInt(array[2]))) > 12) {
+            meridiem = "pm";
+            time -= 12;
+        }
+        nameView.setText(time + ":00 " + meridiem + " - " + array[0] + " (" + array[4] + " - " + array[1] + ")");
         if(12 > Integer.parseInt(array[2])){
             //added to due
             due.addView(view);
@@ -145,21 +153,47 @@ public class MainActivity extends AppCompatActivity {
         take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: 1 here
+                if (view.getParent() == taken) {
+                    Toast.makeText(getApplicationContext(), "You already completed this reminder!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (view.getParent() == due) {
+                        due.removeView(view);
+                    } else if (view.getParent() == later) {
+                        later.removeView(view);
+                    }
+                    taken.addView(view);
+                    reminderOptions.setVisibility(View.GONE);
+                }
             }
         });
 
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: 2 set up,
+                if (view.getParent() == taken) {
+                    Toast.makeText(getApplicationContext(), "You already completed this reminder!", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (view.getParent() == due) {
+                        due.removeView(view);
+                    } else if (view.getParent() == later) {
+                        later.removeView(view);
+                    }
+                    taken.addView(view);
+                    reminderOptions.setVisibility(View.GONE);
+                }
             }
         });
 
         snooze.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: 3 set up,
+                if (view.getParent() == taken) {
+                    Toast.makeText(getApplicationContext(), "You already completed this reminder!", Toast.LENGTH_SHORT).show();
+                } else {
+                    due.removeView(view);
+                    later.addView(view);
+                    reminderOptions.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -227,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, medicationsActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -245,6 +280,4 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 }

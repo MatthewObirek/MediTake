@@ -213,6 +213,8 @@ public class medicationsActivity extends AppCompatActivity {
     // close activity
     public void done(View view){
 
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         finish();
 
     }

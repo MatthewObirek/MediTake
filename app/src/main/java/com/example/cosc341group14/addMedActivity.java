@@ -50,7 +50,8 @@ public class addMedActivity extends AppCompatActivity {
 
     // close activity
     public void cancel(View view){
-
+        Intent intent = new Intent(this, medicationsActivity.class);
+        startActivity(intent);
         finish();
 
     }
@@ -116,7 +117,8 @@ public class addMedActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        Intent intent = new Intent(this, medicationsActivity.class);
+        startActivity(intent);
         finish();
 
     }
