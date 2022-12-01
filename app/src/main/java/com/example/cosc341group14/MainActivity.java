@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, medicationsActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -273,6 +274,4 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 }

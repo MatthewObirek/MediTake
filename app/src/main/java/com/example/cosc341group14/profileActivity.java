@@ -218,7 +218,7 @@ public class profileActivity extends AppCompatActivity {
 
     public void mainActivity(View view){
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(profileActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
 

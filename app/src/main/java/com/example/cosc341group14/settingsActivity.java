@@ -208,7 +208,7 @@ public class settingsActivity extends AppCompatActivity {
 
     public void mainActivity(View view){
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(settingsActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
 
