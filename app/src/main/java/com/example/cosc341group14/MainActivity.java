@@ -134,7 +134,13 @@ public class MainActivity extends AppCompatActivity {
         Button skip = view.findViewById(R.id.btnSkip);
 
         String[] array = med.split("[,]",0);
-        nameView.setText(array[2] + ":" + array[3] + array[0]+" - " + array[2] +", " + array[4]);
+        String meridiem = "am";
+        int time;
+        if ((time = (Integer.parseInt(array[2]))) > 12) {
+            meridiem = "pm";
+            time -= 12;
+        }
+        nameView.setText(time + ":00 " + meridiem + " - " + array[0] + " (" + array[4] + " - " + array[1] + ")");
         if(12 > Integer.parseInt(array[2])){
             //added to due
             due.addView(view);
