@@ -74,11 +74,11 @@ public class profileActivity extends AppCompatActivity {
         }
 
 
-        if(patientList.size() == 0)
+        if(patientList.size() == 0) {
             EText.setVisibility(View.VISIBLE);
-        else
+        } else {
             EText.setVisibility(View.GONE);
-
+        }
 
         for(Profile patient: patientList) {
             addCard(patient);
@@ -104,14 +104,14 @@ public class profileActivity extends AppCompatActivity {
                     editMode = true;
                 } else {
                     FileOutputStream outputStream;  //Allow a file to be opened for writing
-                    try {
-                        outputStream = openFileOutput(file, Context.MODE_PRIVATE);
-                        for(Profile patient : patientList){
-                            WriteData += patient.toString();
-                        }
+                        try {
+                            outputStream = openFileOutput(file, Context.MODE_PRIVATE);
+                            for(Profile patient : patientList){
+                                WriteData += patient.toString();
+                            }
 
-                        outputStream.write(WriteData.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
-                        outputStream.close();
+                            outputStream.write(WriteData.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
+                            outputStream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

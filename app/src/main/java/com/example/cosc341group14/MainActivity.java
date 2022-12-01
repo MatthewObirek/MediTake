@@ -2,6 +2,7 @@ package com.example.cosc341group14;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,15 +18,23 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    String filenameMedication;
+    //format for medication is this.
+    //MedName, Repeat, Hour, Minute, Dose
+    ArrayList<String> medList;
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("Calendar");
+        medList= new ArrayList<String>();
+        filenameMedication = "medication.txt";
 
         //create settings file if it does not exist
         File file = new File(getApplicationContext().getFilesDir(),"settings.txt");
@@ -52,39 +61,128 @@ public class MainActivity extends AppCompatActivity {
             if (bundle.getBoolean("altUser") == true) {
                 TextView altUserName = altUser.findViewById(R.id.currentUserTextView);
                 altUserName.setText(bundle.getString("patientName"));
-
                 altUser.setVisibility(View.VISIBLE);
+                filenameMedication = bundle.getString("FileName"); //Demo not not
             } else {
                 altUser.setVisibility(View.GONE);
-
             }
         } else {
             altUser.setVisibility(View.GONE);
         }
-    }
 
-    public void reminderClick (View view) {
-        LinearLayout reminderOptions = (LinearLayout) findViewById(R.id.dueOptions);
-        if (reminderOptions.isShown() == false) {
-            reminderOptions.setVisibility(View.VISIBLE);
-        } else {
-            reminderOptions.setVisibility(View.GONE);
+        //Reads file and adds example data for prototype.
+        //File read operation
+        String line = "";
+        String data = "";
+        try {
+            FileInputStream fis = openFileInput(filenameMedication);  //A FileInputStream obtains input bytes from a file in a file system
+            InputStreamReader isr = new InputStreamReader(fis); //An InputStreamReader is a bridge from byte streams to character streams
+            BufferedReader br = new BufferedReader(isr);    //Reads text from a character-input stream,
+            while ((line = br.readLine()) != null) {
+                data = line;
+                medList.add(data);
+            }
+            // if no file found, informs user there are no records
+        }catch (FileNotFoundException e){
+            medList.add("Aleve,Daily,8,0,1 doses");
+            medList.add("Advil,Daily,18,0,2 doses");
+            FileOutputStream outputStream;  //Allow a file to be opened for writing
+            try {
+                outputStream = openFileOutput(filenameMedication, Context.MODE_PRIVATE);
+                    for(String elem: medList)
+                    {
+                        data += (elem +"\n");
+                }
+
+                outputStream.write(data.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
+                outputStream.close();
+            } catch (Exception ex) {
+                e.printStackTrace();
+            }
+            e.printStackTrace();
         }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+        for(String elem: medList){
+            addCard(elem);
+        }
+
     }
 
+
+    private void addCard(String med) {
+        final View view = getLayoutInflater().inflate(R.layout.card_med, null);
+        LinearLayout reminderOptions = (LinearLayout) view.findViewById(R.id.editButtonsLayout);
+        LinearLayout due = (LinearLayout) findViewById(R.id.dueList);
+        LinearLayout taken = (LinearLayout) findViewById(R.id.takenList);
+        View medButton = view.findViewById(R.id.medCard);
+        TextView nameView = view.findViewById(R.id.nameMed);
+
+        Button take = view.findViewById(R.id.btnTake);
+        Button snooze = view.findViewById(R.id.btnSnooze);
+        Button skip = view.findViewById(R.id.btnSkip);
+
+        String[] array = med.split("[,]",0);
+        nameView.setText(array[2] + ":" + array[3] + array[0]+" - " + array[2] +", " + array[4]);
+        if(12 > Integer.parseInt(array[2])){
+            //added to due
+            due.addView(view);
+        } else {
+            //added to later today
+            due.addView(view);
+        }
+
+        //linearLayout.addView(view);
+        take.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: 1 here
+            }
+        });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: 2 set up,
+            }
+        });
+
+        snooze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: 3 set up,
+            }
+        });
+
+        medButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (reminderOptions.isShown() == false) {
+                    reminderOptions.setVisibility(View.VISIBLE);
+                } else {
+                    reminderOptions.setVisibility(View.GONE);
+                }
+            }
+        });
+
+    }
+
+    //TODO: 1 shift this into the take button at line 141
     public void takeMedicine (View view) {
         LinearLayout due = (LinearLayout) findViewById(R.id.dueList);
         LinearLayout taken = (LinearLayout) findViewById(R.id.takenList);
         LinearLayout reminderOptions = (LinearLayout) findViewById(R.id.dueOptions);
-        Button aleve = (Button) findViewById(R.id.aleveButton);
+        Button medication = (Button) due.getChildAt(0);
 
-        due.removeView(aleve);
-        taken.addView(aleve);
+        due.removeView(medication);
+        taken.addView(medication);
 
         due.invalidate();
         taken.invalidate();
         reminderOptions.setVisibility(View.GONE);
-        aleve.setTextColor(Color.parseColor("#FFFFFF"));
+        medication.setTextColor(Color.parseColor("#FFFFFF"));
     }
 
     public void mainActivity(View view){
@@ -124,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
 
 
 }

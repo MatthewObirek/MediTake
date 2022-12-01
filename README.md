@@ -1,6 +1,15 @@
 # Cosc341Group14
 Cosc 341 Group 14 Project Step 4
 
+### MainActivity / Calendar page
+The page that is first loaded up.
+
+TODO:
+- [ ] set up med option buttons
+- [ ] make look nice *no text flowing off of the screen*
+- [ ] make sure that when medication cards added with `addCard(string med)` are placed in the right view. *taken/Due/Later Today*
+- [ ] make sure load from file works properly
+- [ ] make sure after medication is added from medications activity, it reloads main page and reloads
 
 ### Connection
 The Connection section mainly centers around the ProfileActivity.

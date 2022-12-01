@@ -87,16 +87,7 @@
                 app:layout_constraintHorizontal_bias="0.39"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.268" />
-
-            <Button
-                android:id="@+id/aleveButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#C0C0C0"
-                android:onClick="reminderClick"
-                android:text="@string/aleveButton"
-                android:textColor="#ff0000" />
+                app:layout_constraintVertical_bias="0.268" />>
 
             <LinearLayout
                 android:id="@+id/dueOptions"
@@ -180,7 +171,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.268" />
-
+            <!--
             <Button
                 android:id="@+id/advilButton"
                 android:layout_width="match_parent"
@@ -189,7 +180,7 @@
                 android:text="@string/advilButton"
                 android:textColor="#FFFFFF" />
 
-
+            -->
         </LinearLayout>
     </LinearLayout>
 
