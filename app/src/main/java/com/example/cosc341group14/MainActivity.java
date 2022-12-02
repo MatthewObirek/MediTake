@@ -23,7 +23,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setDate();
+
 
         getSupportActionBar().setTitle("Calendar");
         medList= new ArrayList<String>();
@@ -231,6 +236,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
+
+    }
+
+    // sets month and day at top of screen
+    private void setDate(){
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
+        String month = month_date.format(c.getTime());
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        TextView date = findViewById(R.id.dateView);
+        date.setText(String.format("< %s %d >", month, day));
 
     }
 
