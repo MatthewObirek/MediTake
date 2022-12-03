@@ -25,6 +25,8 @@ public class addMedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_med);
 
+        getSupportActionBar().setTitle("Add Medication");
+
         setupSpinners();
 
         Bundle bundle = getIntent().getExtras();

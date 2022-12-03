@@ -36,6 +36,8 @@ public class medicationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medications);
 
+        getSupportActionBar().setTitle("All Medication");
+
         medInfo = new ArrayList<>();
 
         txtOutput = findViewById(R.id.tv_Empty);
