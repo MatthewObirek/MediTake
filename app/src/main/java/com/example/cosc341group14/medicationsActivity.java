@@ -28,6 +28,7 @@ public class medicationsActivity extends AppCompatActivity {
     int size = 0;
     TextView txtOutput;
     List<String> medInfo;
+    String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class medicationsActivity extends AppCompatActivity {
 
         txtOutput = findViewById(R.id.tv_Empty);
 
-        String filename = getIntent().getExtras().getString("filename");
+        filename = getIntent().getExtras().getString("filename");
         readData(filename);
     }
 
@@ -179,7 +180,6 @@ public class medicationsActivity extends AppCompatActivity {
 
 
         //File write operation
-        String filename = "medication.txt";
         FileOutputStream outputStream;  //Allow a file to be opened for writing
 
         try {
@@ -197,6 +197,9 @@ public class medicationsActivity extends AppCompatActivity {
     // "reloads" medicationsActivity
     private void reloadActivity(){
         Intent intent = new Intent(medicationsActivity.this, medicationsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
