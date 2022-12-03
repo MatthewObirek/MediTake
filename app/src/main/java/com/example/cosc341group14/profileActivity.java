@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class profileActivity extends AppCompatActivity {
 
-    String WriteData;
+
     String file;
 
     boolean editMode = false;
@@ -103,6 +103,7 @@ public class profileActivity extends AppCompatActivity {
                     }
                     editMode = true;
                 } else {
+                    String WriteData = "";
                     FileOutputStream outputStream;  //Allow a file to be opened for writing
                         try {
                             outputStream = openFileOutput(file, Context.MODE_PRIVATE);
