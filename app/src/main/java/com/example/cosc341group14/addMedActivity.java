@@ -19,7 +19,7 @@ import java.util.Date;
 
 public class addMedActivity extends AppCompatActivity {
     private String filename;
-
+    private String patientName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,9 @@ public class addMedActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         filename = bundle.getString("filename");
+        if(getIntent().hasExtra("patientName"))
+            patientName = bundle.getString("patientName");
+
     }
 
     private void setupSpinners(){
@@ -56,6 +59,10 @@ public class addMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
+        if(patientName!=null) {
+            bundle.putString("patientName", patientName);
+            bundle.putBoolean("altUser", true);
+        }
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -106,6 +113,7 @@ public class addMedActivity extends AppCompatActivity {
             bundle.putInt("minute", Integer.parseInt(minute));
             int notificationId = (medName+dose+hour+minute).hashCode();
             bundle.putInt("id", notificationId);
+            bundle.putString("patientName", patientName);
             bundle.putString("extras", "");
             intent.putExtras(bundle);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationId, intent, PendingIntent.FLAG_MUTABLE);
@@ -125,6 +133,10 @@ public class addMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
+        if(patientName!=null) {
+            bundle.putString("patientName", patientName);
+            bundle.putBoolean("altUser", true);
+        }
         intent.putExtras(bundle);
         startActivity(intent);
         finish();

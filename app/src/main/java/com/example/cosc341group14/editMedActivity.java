@@ -28,6 +28,7 @@ public class editMedActivity extends AppCompatActivity {
     String [] medFields;
     List<String> medInfo;
     int size = 0;
+    private String patientName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class editMedActivity extends AppCompatActivity {
         medInfo = new ArrayList<>();
 
         filename = bundle.getString("filename");
+        if(getIntent().hasExtra("patientName"))
+            patientName = bundle.getString("patientName");
+
         setupSpinners();
         setupFields();
         readData(filename);
@@ -180,6 +184,10 @@ public class editMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
+        if(patientName!=null) {
+            bundle.putString("patientName", patientName);
+            bundle.putBoolean("altUser", true);
+        }
         intent.putExtras(bundle);
         startActivity(intent);
         finish();

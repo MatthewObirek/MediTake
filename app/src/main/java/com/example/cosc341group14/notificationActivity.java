@@ -63,7 +63,12 @@ public class notificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmReceiver.class);
         int id = notificationDetails.getInt("id") + 1;
         notificationDetails.putInt("id", id);
-        notificationDetails.putString("extras", "You are overdue to take your medication.");
+        if (intent.hasExtra("altUser")) {
+            String name = notificationDetails.getString("patientName");
+            notificationDetails.putString("extras", name +" is overdue to take their medication.");
+        } else {
+            notificationDetails.putString("extras", "You are overdue to take your medication.");
+        }
         intent.putExtras(notificationDetails);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_MUTABLE);
         long time = System.currentTimeMillis() + 300000;

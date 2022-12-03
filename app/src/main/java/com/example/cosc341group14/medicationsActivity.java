@@ -29,6 +29,7 @@ public class medicationsActivity extends AppCompatActivity {
     TextView txtOutput;
     List<String> medInfo;
     String filename;
+    String patientName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,8 @@ public class medicationsActivity extends AppCompatActivity {
         txtOutput = findViewById(R.id.tv_Empty);
 
         filename = getIntent().getExtras().getString("filename");
+        if(getIntent().hasExtra("patientName"))
+            patientName = getIntent().getExtras().getString("patientName");
         readData(filename);
     }
 
@@ -203,6 +206,8 @@ public class medicationsActivity extends AppCompatActivity {
         Intent intent = new Intent(medicationsActivity.this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
+        if(patientName!=null)
+            bundle.putString("patientName", patientName);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -214,6 +219,8 @@ public class medicationsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, addMedActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
+        if(patientName!=null)
+            bundle.putString("patientName", patientName);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -224,6 +231,13 @@ public class medicationsActivity extends AppCompatActivity {
     public void done(View view){
 
         Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        if(patientName!=null) {
+            bundle.putString("patientName", patientName);
+            bundle.putBoolean("altUser", true);
+        }
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 

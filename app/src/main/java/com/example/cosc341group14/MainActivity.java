@@ -33,6 +33,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     String filenameMedication;
+    String patientName = null;
     //format for medication is this.
     //MedName, Repeat, Hour, Minute, Dose
     ArrayList<String> medList;
@@ -78,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
             altUser.setVisibility(View.VISIBLE);
             if (bundle.getBoolean("altUser") == true) {
                 TextView altUserName = altUser.findViewById(R.id.currentUserTextView);
-                altUserName.setText(bundle.getString("patientName"));
+                patientName = bundle.getString("patientName");
+                altUserName.setText(patientName);
                 altUser.setVisibility(View.VISIBLE);
                 filenameMedication = bundle.getString("filename"); //Demo not not
             } else {
@@ -377,6 +379,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, addMedActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filenameMedication);
+        if(getIntent().hasExtra("patientName"))
+            bundle.putString("patientName", patientName);
         intent.putExtras(bundle);
         startActivity(intent);
 
@@ -387,6 +391,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filenameMedication);
+        if(getIntent().hasExtra("patientName"))
+            bundle.putString("patientName", patientName);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
