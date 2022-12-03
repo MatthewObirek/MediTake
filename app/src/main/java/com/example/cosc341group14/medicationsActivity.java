@@ -38,13 +38,13 @@ public class medicationsActivity extends AppCompatActivity {
 
         txtOutput = findViewById(R.id.tv_Empty);
 
-        readData();
+        String filename = getIntent().getExtras().getString("filename");
+        readData(filename);
     }
 
     // load data from file into arraylist
-    public void readData(){
+    public void readData(String file){
 
-        String file = "medication.txt";
         String line = "";
         String data = "";
 

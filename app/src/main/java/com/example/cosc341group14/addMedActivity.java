@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.util.Date;
 
 public class addMedActivity extends AppCompatActivity {
+    private String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,8 @@ public class addMedActivity extends AppCompatActivity {
 
         setupSpinners();
 
+        Bundle bundle = getIntent().getExtras();
+        filename = bundle.getString("filename");
     }
 
     private void setupSpinners(){
@@ -81,7 +84,6 @@ public class addMedActivity extends AppCompatActivity {
 
 
         //File write operation
-        String filename = "medication.txt";
         String fileContents = String.format("%s,%s,%s,%s,%s,%s\n", medName, repeat, hour, minute, dose,"0");
         FileOutputStream outputStream;  //Allow a file to be opened for writing
 
@@ -118,6 +120,9 @@ public class addMedActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, medicationsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 

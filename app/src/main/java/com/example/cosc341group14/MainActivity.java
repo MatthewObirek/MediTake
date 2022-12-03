@@ -361,6 +361,9 @@ public class MainActivity extends AppCompatActivity {
     public void addActivity(View view){
 
         Intent intent = new Intent(this, addMedActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filenameMedication);
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }
@@ -368,6 +371,9 @@ public class MainActivity extends AppCompatActivity {
     public void editActivity(View view){
 
         Intent intent = new Intent(this, medicationsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filenameMedication);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 
