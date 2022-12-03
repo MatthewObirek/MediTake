@@ -208,7 +208,7 @@ public class profileActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("altUser", true);
                 bundle.putString("patientName", patient.name);
-                bundle.putString("FileName", patient.filename);
+                bundle.putString("filename", patient.filename);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

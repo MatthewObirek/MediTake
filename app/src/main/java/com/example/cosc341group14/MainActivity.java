@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView altUserName = altUser.findViewById(R.id.currentUserTextView);
                 altUserName.setText(bundle.getString("patientName"));
                 altUser.setVisibility(View.VISIBLE);
-                filenameMedication = bundle.getString("FileName"); //Demo not not
+                filenameMedication = bundle.getString("filename"); //Demo not not
             } else {
                 altUser.setVisibility(View.GONE);
             }

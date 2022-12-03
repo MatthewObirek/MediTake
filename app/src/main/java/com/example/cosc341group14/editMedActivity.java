@@ -148,8 +148,6 @@ public class editMedActivity extends AppCompatActivity {
 
         String fileContents = "";
 
-        //File write operation
-        String filename = "medication.txt";
 
         // iterate through meds to prepare filecontents
         for (String s: medInfo) {
@@ -157,7 +155,7 @@ public class editMedActivity extends AppCompatActivity {
             if (!s.equals(curMed)){
                 fileContents += s +"\n";
             } else {
-                String editContents = String.format("%s,%s,%s,%s,%s\n", medName, repeat, hour, minute, dose);
+                String editContents = String.format("%s,%s,%s,%s,%s,%s\n", medName, repeat, hour, minute, dose, "0");
                 fileContents += editContents;
             }
         }
