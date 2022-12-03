@@ -82,7 +82,7 @@ public class addMedActivity extends AppCompatActivity {
 
         //File write operation
         String filename = "medication.txt";
-        String fileContents = String.format("%s,%s,%s,%s,%s\n", medName, repeat, hour, minute, dose);
+        String fileContents = String.format("%s,%s,%s,%s,%s,%s\n", medName, repeat, hour, minute, dose,"0");
         FileOutputStream outputStream;  //Allow a file to be opened for writing
 
         try {
