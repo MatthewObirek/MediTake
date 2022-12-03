@@ -23,6 +23,7 @@ import java.util.List;
 
 public class editMedActivity extends AppCompatActivity {
 
+    String filename;
     String curMed = "";
     String [] medFields;
     List<String> medInfo;
@@ -37,16 +38,16 @@ public class editMedActivity extends AppCompatActivity {
         medFields = curMed.split(",");
         medInfo = new ArrayList<>();
 
+        filename = getIntent().getExtras().getString("filename");
         setupSpinners();
         setupFields();
-        readData();
+        readData(filename);
 
     }
 
     // load data from file into arraylist
-    public void readData(){
+    public void readData(String file){
 
-        String file = "medication.txt";
         String line = "";
         String data = "";
 
@@ -178,6 +179,9 @@ public class editMedActivity extends AppCompatActivity {
     private void backToMeds(){
 
         Intent intent = new Intent(this, medicationsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 
