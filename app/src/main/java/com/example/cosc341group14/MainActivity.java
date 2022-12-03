@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         String category;
         if(array[5].equals(Integer.toString(dayOfMonth))) {
             category = "taken";
-        } else if(currentHour > Integer.parseInt(array[2]) || (currentHour == Integer.parseInt(array[2]) && currentMinute >= Integer.parseInt(array[2]))) {
+        } else if(currentHour > Integer.parseInt(array[2]) || (currentHour == Integer.parseInt(array[2]) && currentMinute >= Integer.parseInt(array[3]))) {
             category = "due";
         } else {
             category = "later";
