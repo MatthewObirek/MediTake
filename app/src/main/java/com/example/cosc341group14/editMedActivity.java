@@ -34,11 +34,12 @@ public class editMedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_med);
 
-        curMed = getIntent().getStringExtra("med");
+        Bundle bundle = getIntent().getExtras();
+        curMed = bundle.getString("med");
         medFields = curMed.split(",");
         medInfo = new ArrayList<>();
 
-        filename = getIntent().getExtras().getString("filename");
+        filename = bundle.getString("filename");
         setupSpinners();
         setupFields();
         readData(filename);

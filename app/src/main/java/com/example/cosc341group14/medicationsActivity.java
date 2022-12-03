@@ -107,7 +107,11 @@ public class medicationsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(medicationsActivity.this, editMedActivity.class);
-                    intent.putExtra("med", med);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("filename", filename);
+                    bundle.putString("med", med);
+                    intent.putExtras(bundle);
+
                     startActivity(intent);
                     finish();
                 }
