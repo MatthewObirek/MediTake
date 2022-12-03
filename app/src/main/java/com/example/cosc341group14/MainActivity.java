@@ -23,9 +23,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     //format for medication is this.
     //MedName, Repeat, Hour, Minute, Dose
     ArrayList<String> medList;
+    Calendar cal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         setDate();
 
+        cal = Calendar.getInstance();
 
         getSupportActionBar().setTitle("Calendar");
         medList= new ArrayList<String>();
@@ -97,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             }
             // if no file found, informs user there are no records
         }catch (FileNotFoundException e){
-            medList.add("Aleve,Daily,8,0,1 doses");
-            medList.add("Advil,Daily,18,0,2 doses");
+            medList.add("Aleve,Daily,8,0,1 doses,0");
+            medList.add("Advil,Daily,18,0,2 doses,0");
             FileOutputStream outputStream;  //Allow a file to be opened for writing
             try {
                 outputStream = openFileOutput(filenameMedication, Context.MODE_PRIVATE);
@@ -138,20 +143,40 @@ public class MainActivity extends AppCompatActivity {
         Button snooze = view.findViewById(R.id.btnSnooze);
         Button skip = view.findViewById(R.id.btnSkip);
 
+        int currentHour = cal.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = cal.get(Calendar.MINUTE);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+
+
+
         String[] array = med.split("[,]",0);
-        String meridiem = "am";
-        int time;
-        if ((time = (Integer.parseInt(array[2]))) > 12) {
-            meridiem = "pm";
-            time -= 12;
+
+        String category;
+        if(array[5].equals(Integer.toString(dayOfMonth))) {
+            category = "taken";
+        } else if(currentHour > Integer.parseInt(array[2]) || (currentHour == Integer.parseInt(array[2]) && currentMinute >= Integer.parseInt(array[2]))) {
+            category = "due";
+        } else {
+            category = "later";
         }
-        nameView.setText(time + ":00 " + meridiem + " - " + array[0] + " (" + array[4] + " - " + array[1] + ")");
-        if(12 > Integer.parseInt(array[2])){
+
+        String meridiem = "am";
+        int timeHour;
+        if ((timeHour = (Integer.parseInt(array[2]))) > 12) {
+            meridiem = "pm";
+            timeHour -= 12;
+        }
+        int timeMinute = Integer.parseInt(array[3]);
+        nameView.setText(String.format("%02d:%02d", timeHour, timeMinute) + " " + meridiem + " - " + array[0] + " (" + array[4] + " - " + array[1] + ")");
+
+        if(category == "due"){
             //added to due
             due.addView(view);
-        } else {
+        } else if(category == "later") {
             //added to later today
-            due.addView(view);
+            later.addView(view);
+        } else if(category == "taken") {
+            taken.addView(view);
         }
 
         //linearLayout.addView(view);
@@ -168,6 +193,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                     taken.addView(view);
                     reminderOptions.setVisibility(View.GONE);
+                    int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+                    ArrayList<String> medInfo = readData(filenameMedication);
+                    for (int i = 0; i < medInfo.size(); i++) {
+                        if (medInfo.get(i).equals(med)){
+                            String[] medArray = med.split(",");
+                            medArray[5] = Integer.toString(dayOfMonth);
+                            medInfo.set(i, String.join(",", medArray));
+                        }
+                    }
+                    writeData(filenameMedication, medInfo);
                 }
             }
         });
@@ -185,6 +220,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                     taken.addView(view);
                     reminderOptions.setVisibility(View.GONE);
+                    int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+                    ArrayList<String> medInfo = readData(filenameMedication);
+                    for (int i = 0; i < medInfo.size(); i++) {
+                        if (medInfo.get(i).equals(med)){
+                            String[] medArray = med.split(",");
+                            medArray[5] = Integer.toString(dayOfMonth);
+                            medInfo.set(i, String.join(",", medArray));
+                        }
+                    }
+                    writeData(filenameMedication, medInfo);
                 }
             }
         });
@@ -213,6 +258,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // load data from file into arraylist
+    public ArrayList<String> readData(String fileName){
+
+        String file = fileName;
+        String line = "";
+        String data = "";
+
+        ArrayList<String> medInfo = new ArrayList<>();
+
+        //File read operation
+        try {
+            FileInputStream fis = openFileInput(file);  //A FileInputStream obtains input bytes from a file in a file system
+            InputStreamReader isr = new InputStreamReader(fis); //An InputStreamReader is a bridge from byte streams to character streams
+            BufferedReader br = new BufferedReader(isr);    //Reads text from a character-input stream,
+            while ((line = br.readLine()) != null) {
+                data = line;
+                medInfo.add(data);
+            }
+            // if no file found, informs user there are no records
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return medInfo;
+    }
+
+    private void writeData(String fileName, ArrayList<String> fileInfo) {
+        FileOutputStream outputStream;  //Allow a file to be opened for writing
+        String data = "";
+        for(String elem: fileInfo)
+        {
+            data += (elem +"\n");
+        }
+        try {
+            outputStream = openFileOutput(fileName, Context.MODE_PRIVATE);
+            outputStream.write(data.getBytes());    //FileOutputStream is meant for writing streams of raw bytes.
+            outputStream.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     //TODO: 1 shift this into the take button at line 141
