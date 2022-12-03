@@ -97,6 +97,7 @@ public class profileActivity extends AppCompatActivity {
                 int count = linearLayout.getChildCount();
                 if(editMode==false) {
                     editButton.setText("Save");
+                    editButton.setBackgroundColor(Color.parseColor("#00ff00"));;
                     for (int i = 1; i < count; i++) {
                         linearLayout.getChildAt(i).findViewById(R.id.editButtonsLayout).setVisibility(View.VISIBLE);
                         linearLayout.getChildAt(i).setClickable(false);
@@ -118,6 +119,7 @@ public class profileActivity extends AppCompatActivity {
                     }
 
                     editButton.setText("Edit");
+                    editButton.setBackgroundColor(Color.parseColor("#1C9DE2"));
                     for (int i = 1; i < count; i++) {
                         linearLayout.getChildAt(i).findViewById(R.id.editButtonsLayout).setVisibility(View.GONE);
                         linearLayout.getChildAt(i).setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -144,7 +146,7 @@ public class profileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         EText.setVisibility(view.GONE);
-                        patientList.add(new Profile(name.getText().toString(), id.getText().toString(), "Up to date"));
+                        patientList.add(new Profile(name.getText().toString(), id.getText().toString(), "1 Medication Missed")); //"1 Medication Missed" is demo data for the patient information.
                         addCard(patientList.get(patientList.size()-1));
                         FileOutputStream outputStream;  //Allow a file to be opened for writing
                         try {
@@ -306,7 +308,7 @@ public class profileActivity extends AppCompatActivity {
 
             builder.setView(dialogView);
             builder.setTitle("Change Patient Information")
-                    .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Profile.this.name = name.getText().toString();
