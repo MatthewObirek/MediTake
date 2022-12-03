@@ -54,6 +54,9 @@ public class addMedActivity extends AppCompatActivity {
     // close activity
     public void cancel(View view){
         Intent intent = new Intent(this, medicationsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 
