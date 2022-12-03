@@ -175,8 +175,12 @@ public class MainActivity extends AppCompatActivity {
         } else if(category == "later") {
             //added to later today
             later.addView(view);
+            view.findViewById(R.id.btnSnooze).setBackgroundColor(Color.parseColor("#777777"));
         } else if(category == "taken") {
             taken.addView(view);
+            view.findViewById(R.id.btnTake).setBackgroundColor(Color.parseColor("#777777"));
+            view.findViewById(R.id.btnSnooze).setBackgroundColor(Color.parseColor("#777777"));
+            view.findViewById(R.id.btnSkip).setBackgroundColor(Color.parseColor("#777777"));
         }
 
         //linearLayout.addView(view);
@@ -192,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
                         later.removeView(view);
                     }
                     taken.addView(view);
+                    view.findViewById(R.id.btnTake).setBackgroundColor(Color.parseColor("#777777"));
+                    view.findViewById(R.id.btnSnooze).setBackgroundColor(Color.parseColor("#777777"));
+                    view.findViewById(R.id.btnSkip).setBackgroundColor(Color.parseColor("#777777"));
                     reminderOptions.setVisibility(View.GONE);
                     int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
                     ArrayList<String> medInfo = readData(filenameMedication);
@@ -219,6 +226,9 @@ public class MainActivity extends AppCompatActivity {
                         later.removeView(view);
                     }
                     taken.addView(view);
+                    view.findViewById(R.id.btnTake).setBackgroundColor(Color.parseColor("#777777"));
+                    view.findViewById(R.id.btnSnooze).setBackgroundColor(Color.parseColor("#777777"));
+                    view.findViewById(R.id.btnSkip).setBackgroundColor(Color.parseColor("#777777"));
                     reminderOptions.setVisibility(View.GONE);
                     int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
                     ArrayList<String> medInfo = readData(filenameMedication);
@@ -239,10 +249,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (view.getParent() == taken) {
                     Toast.makeText(getApplicationContext(), "You already completed this reminder!", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (view.getParent() == later){
+                    Toast.makeText(getApplicationContext(), "Task Is not due, and cannot be snoozed!", Toast.LENGTH_SHORT).show();
+                }else {
                     due.removeView(view);
                     later.addView(view);
+                    view.findViewById(R.id.btnSnooze).setBackgroundColor(Color.parseColor("#777777"));
                     reminderOptions.setVisibility(View.GONE);
+
                 }
             }
         });
