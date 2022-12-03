@@ -212,6 +212,9 @@ public class medicationsActivity extends AppCompatActivity {
     public void addMed(View view){
 
         Intent intent = new Intent(this, addMedActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("filename", filename);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
 
