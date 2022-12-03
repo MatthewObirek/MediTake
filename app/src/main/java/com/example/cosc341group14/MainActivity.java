@@ -352,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         TextView date = findViewById(R.id.dateView);
-        date.setText(String.format("< %s %d >", month, day));
+        date.setText(String.format("%s %d", month, day));
 
     }
 

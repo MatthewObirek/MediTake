@@ -97,7 +97,7 @@ public class profileActivity extends AppCompatActivity {
                 int count = linearLayout.getChildCount();
                 if(editMode==false) {
                     editButton.setText("Save");
-                    editButton.setBackgroundColor(Color.parseColor("#00ff00"));;
+                    editButton.setBackgroundColor(Color.parseColor("#72f9c9"));;
                     for (int i = 1; i < count; i++) {
                         linearLayout.getChildAt(i).findViewById(R.id.editButtonsLayout).setVisibility(View.VISIBLE);
                         linearLayout.getChildAt(i).setClickable(false);
