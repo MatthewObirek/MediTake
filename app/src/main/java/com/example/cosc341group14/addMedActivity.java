@@ -31,8 +31,11 @@ public class addMedActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         filename = bundle.getString("filename");
-        if(getIntent().hasExtra("patientName"))
+        if(getIntent().hasExtra("patientName")) {
             patientName = bundle.getString("patientName");
+        } else {
+            patientName = "";
+        }
 
     }
 

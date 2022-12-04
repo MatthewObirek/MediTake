@@ -21,6 +21,7 @@ public class notificationActivity extends AppCompatActivity {
     private TextView medicationNameTextView;
     private TextView dosageTextView;
     private TextView extraInfoTextView;
+    private TextView patientNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class notificationActivity extends AppCompatActivity {
         medicationNameTextView = (TextView) findViewById(R.id.medicationNameTextView);
         dosageTextView = (TextView) findViewById(R.id.dosageTextView);
         extraInfoTextView = (TextView) findViewById(R.id.extraInfoTextView);
+        patientNameTextView = (TextView) findViewById(R.id.patientNameTextView);
 
         timeTextView.setText("");
         medicationNameTextView.setText("");
@@ -42,6 +44,7 @@ public class notificationActivity extends AppCompatActivity {
         String medicationName = bundle.getString("medication");
         String doses = bundle.getString("doses");
         String extras = bundle.getString("extras");
+        String patientName = bundle.getString("patientName");
         int hour = bundle.getInt("hour");
         int minute = bundle.getInt("minute");
 
@@ -50,6 +53,7 @@ public class notificationActivity extends AppCompatActivity {
         medicationNameTextView.setText(medicationName);
         dosageTextView.setText(doses);
         extraInfoTextView.setText(extras);
+        patientNameTextView.setText(patientName);
 
         getSupportActionBar().setTitle(medicationName);
     }
@@ -63,15 +67,15 @@ public class notificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AlarmReceiver.class);
         int id = notificationDetails.getInt("id") + 1;
         notificationDetails.putInt("id", id);
-        if (intent.hasExtra("altUser")) {
-            String name = notificationDetails.getString("patientName");
+        String name = notificationDetails.getString("patientName");
+        if (!name.equals("")) {
             notificationDetails.putString("extras", name +" is overdue to take their medication.");
         } else {
             notificationDetails.putString("extras", "You are overdue to take your medication.");
         }
         intent.putExtras(notificationDetails);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_MUTABLE);
-        long time = System.currentTimeMillis() + 300000;
+        long time = System.currentTimeMillis() + 30000;
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         finish();
     }

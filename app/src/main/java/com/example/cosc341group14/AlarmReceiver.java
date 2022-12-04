@@ -21,9 +21,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Bundle bundle = intent.getExtras();
         int id = bundle.getInt("id");
+        String patientName = bundle.getString("patientName");
         String medName = bundle.getString("medication");
         fullScreenIntent.putExtras(bundle);
 
+        String contentText = "Time to take your dose of " + medName + ".";
+        if (!patientName.equals("")) {
+            contentText = "Time for " + patientName + " to take their " + medName + ".";
+        }
 
         PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(context, id,
                 fullScreenIntent, PendingIntent.FLAG_MUTABLE);
@@ -31,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
                 .setSmallIcon(R.drawable.icons8_automatic_80)
                 .setContentTitle("Medication Reminder")
-                .setContentText("Time to take your dose of " + medName + ".")
+                .setContentText(contentText)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setFullScreenIntent(fullScreenPendingIntent, true);
 
