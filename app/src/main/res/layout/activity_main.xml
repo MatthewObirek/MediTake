@@ -27,43 +27,6 @@
             app:layout_constraintVertical_bias="0.422">
 
             <LinearLayout
-                android:id="@+id/takenList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.483"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.065">
-
-                <TextView
-                    android:id="@+id/takenlabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dip"
-                    android:gravity="left"
-                    android:text="Taken"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:id="@+id/takenUnderline"
-                    android:layout_width="370dp"
-                    android:layout_height="4dp"
-                    android:background="#000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.39"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.268" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -191,6 +154,44 @@
 
                 -->
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/takenList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.483"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.065">
+
+                <TextView
+                    android:id="@+id/takenlabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:gravity="left"
+                    android:text="Taken"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/takenUnderline"
+                    android:layout_width="370dp"
+                    android:layout_height="4dp"
+                    android:background="#000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.39"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.268" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
