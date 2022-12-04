@@ -1,5 +1,6 @@
 package com.example.cosc341group14;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -41,6 +42,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setFullScreenIntent(fullScreenPendingIntent, true);
 
         NotificationManagerCompat nmc = NotificationManagerCompat.from(context);
-        nmc.notify(NOTIFICATION_ID, builder.build());
+        Notification notification = builder.build();
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        nmc.notify(NOTIFICATION_ID, notification);
     }
 }
