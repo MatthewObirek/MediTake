@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -145,6 +146,17 @@ public class profileActivity extends AppCompatActivity {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        if (name.getText().toString().length() <= 0 ){
+                            Toast.makeText(getApplicationContext(), "Please enter a valid patient name.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (id.getText().toString().length() <= 0 ){
+                            Toast.makeText(getApplicationContext(), "Please enter a valid id.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         EText.setVisibility(view.GONE);
                         patientList.add(new Profile(name.getText().toString(), id.getText().toString(), "1 Medication Missed")); //"1 Medication Missed" is demo data for the patient information.
                         addCard(patientList.get(patientList.size()-1));
