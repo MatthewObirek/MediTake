@@ -64,7 +64,7 @@ public class addMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, medicationsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("filename", filename);
-        if(patientName!=null) {
+        if(!patientName.equals("")) {
             bundle.putString("patientName", patientName);
             bundle.putBoolean("altUser", true);
         }
